@@ -1,1 +1,1 @@
-export const greeting = 'hello world';
+export * from './theme';
