@@ -25,8 +25,7 @@
       "analyze-bundle": "source-map-explorer dist/react-components.js",
       "upgrade-interactive": "npm-check --update",
       "prepare": "husky install",
-      "gen:theme-typings": "chakra-cli tokens ./src/theme/index.ts",
-      "postinstall": "npm run gen:theme-typings"
+      "gen:theme-typings": "chakra-cli tokens ./src/theme/index.ts"
    },
    "peerDependencies": {
       "react": ">=16",
