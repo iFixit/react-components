@@ -1,0 +1,20 @@
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import '@storybook/addon-console';
+import * as React from 'react';
+import { theme } from '../src';
+
+export const parameters = {
+   actions: { argTypesRegex: '^on[A-Z].*' },
+};
+
+const customTheme = extendTheme(theme);
+
+const withChakra = (StoryFn: Function) => {
+   return (
+      <ChakraProvider theme={customTheme}>
+         <StoryFn />
+      </ChakraProvider>
+   );
+};
+
+export const decorators = [withChakra];
