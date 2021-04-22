@@ -108,7 +108,6 @@ export function PaginationButton({
    const handleClick = React.useCallback(() => {
       switch (page) {
          case 'first': {
-            console.log('FIRST!!');
             first();
             break;
          }
@@ -174,13 +173,7 @@ export interface PaginationLinkProps extends HTMLChakraProps<'a'> {
    icon?: React.ElementType;
 }
 
-export function PaginationLink({
-   page,
-   icon: ButtonIcon,
-   children,
-   href,
-   ...rest
-}: PaginationLinkProps) {
+export function PaginationLink({ page, icon: ButtonIcon, children, ...rest }: PaginationLinkProps) {
    const styles = useStyles();
    const { currentPage, numberOfPages, hasPrevious, hasNext } = usePaginationContext();
 
@@ -222,12 +215,7 @@ export function PaginationLink({
    }
 
    return (
-      <chakra.a
-         disabled={isDisabled}
-         href={isDisabled ? '' : href}
-         {...rest}
-         __css={isPage ? styles.pageLink : styles.link}
-      >
+      <chakra.a {...rest} __css={isPage ? styles.pageLink : styles.link}>
          {content}
       </chakra.a>
    );

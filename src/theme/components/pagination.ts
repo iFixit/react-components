@@ -126,7 +126,6 @@ function button(): Record<string, any> {
 }
 
 function pageButton({ colorScheme }: StyleOptions): Record<string, any> {
-   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
    const { bg = `${colorScheme}.500`, color = 'white' } = accessibleColorMap[colorScheme!] || {};
 
    return {
