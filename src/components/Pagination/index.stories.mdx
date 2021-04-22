@@ -1,0 +1,230 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Pagination, PaginationItem, PaginationButton, PaginationLink } from '.';
+import {
+   HiChevronDoubleLeft,
+   HiChevronLeft,
+   HiChevronDoubleRight,
+   HiChevronRight,
+} from 'react-icons/hi';
+
+<Meta
+   title="Components / Pagination"
+   parameters={{
+      docs: {
+         source: {
+            type: 'code',
+         },
+      },
+   }}
+/>
+
+# Pagination
+
+A pagination component.
+
+## with buttons
+
+<Canvas>
+   <Story name="buttons" args={{ numberOfPages: 10 }}>
+      {(args) => (
+         <Pagination aria-label="pagination" numberOfPages={args.numberOfPages}>
+            {(pagination) => (
+               <>
+                  <PaginationItem>
+                     <PaginationButton
+                        aria-label="Go to first page"
+                        page="first"
+                        icon={HiChevronDoubleLeft}
+                     />
+                  </PaginationItem>
+                  <PaginationItem>
+                     <PaginationButton
+                        aria-label="Go to previous page"
+                        page="previous"
+                        icon={HiChevronLeft}
+                     />
+                  </PaginationItem>
+                  {pagination.pages.map((page) => (
+                     <PaginationItem key={page}>
+                        <PaginationButton aria-label={`Go to page ${page}`} page={page} />
+                     </PaginationItem>
+                  ))}
+                  <PaginationItem>
+                     <PaginationButton
+                        aria-label="Go to next page"
+                        page="next"
+                        icon={HiChevronRight}
+                     />
+                  </PaginationItem>
+                  <PaginationItem>
+                     <PaginationButton
+                        aria-label="Go to last page"
+                        page="last"
+                        icon={HiChevronDoubleRight}
+                     />
+                  </PaginationItem>
+               </>
+            )}
+         </Pagination>
+      )}
+   </Story>
+</Canvas>
+
+## with links
+
+<Canvas>
+   <Story name="links" args={{ numberOfPages: 10 }}>
+      {(args) => (
+         <Pagination aria-label="pagination" numberOfPages={args.numberOfPages}>
+            {(pagination) => (
+               <>
+                  <PaginationItem>
+                     <PaginationLink
+                        aria-label="Go to first page"
+                        page="first"
+                        href="#1"
+                        icon={HiChevronDoubleLeft}
+                     />
+                  </PaginationItem>
+                  <PaginationItem>
+                     <PaginationLink
+                        aria-label="Go to previous page"
+                        page="previous"
+                        href={`#${pagination.currentPage - 1}`}
+                        icon={HiChevronLeft}
+                     />
+                  </PaginationItem>
+                  {pagination.pages.map((page) => (
+                     <PaginationItem key={page}>
+                        <PaginationLink
+                           aria-label={`Go to page ${page}`}
+                           href={`#${page}`}
+                           page={page}
+                        />
+                     </PaginationItem>
+                  ))}
+                  <PaginationItem>
+                     <PaginationLink
+                        aria-label="Go to next page"
+                        page="next"
+                        href={`#${pagination.currentPage + 1}`}
+                        icon={HiChevronRight}
+                     />
+                  </PaginationItem>
+                  <PaginationItem>
+                     <PaginationLink
+                        aria-label="Go to last page"
+                        page="last"
+                        href={`#${pagination.numberOfPages}`}
+                        icon={HiChevronDoubleRight}
+                     />
+                  </PaginationItem>
+               </>
+            )}
+         </Pagination>
+      )}
+   </Story>
+</Canvas>
+
+## small
+
+<Canvas>
+   <Story name="small" args={{ numberOfPages: 10 }}>
+      {(args) => (
+         <Pagination aria-label="pagination" numberOfPages={args.numberOfPages} size="sm">
+            {(pagination) => (
+               <>
+                  <PaginationItem>
+                     <PaginationButton
+                        aria-label="Go to first page"
+                        page="first"
+                        icon={HiChevronDoubleLeft}
+                     />
+                  </PaginationItem>
+                  <PaginationItem>
+                     <PaginationButton
+                        aria-label="Go to previous page"
+                        page="previous"
+                        icon={HiChevronLeft}
+                     />
+                  </PaginationItem>
+                  {pagination.pages.map((page) => (
+                     <PaginationItem key={page}>
+                        <PaginationButton aria-label={`Go to page ${page}`} page={page} />
+                     </PaginationItem>
+                  ))}
+                  <PaginationItem>
+                     <PaginationButton
+                        aria-label="Go to next page"
+                        page="next"
+                        icon={HiChevronRight}
+                     />
+                  </PaginationItem>
+                  <PaginationItem>
+                     <PaginationButton
+                        aria-label="Go to last page"
+                        page="last"
+                        icon={HiChevronDoubleRight}
+                     />
+                  </PaginationItem>
+               </>
+            )}
+         </Pagination>
+      )}
+   </Story>
+</Canvas>
+
+## controlled
+
+This snippet shows how pagination can be used with a search API to paginate search results.
+
+```tsx
+import { Pagination } from '@ifixit/react-components';
+
+export function ControlledExample() {
+   const context = useSearchContext();
+
+   const onPageChange = (page) => {
+      context.setPage(page);
+   };
+
+   return (
+      <Pagination
+         aria-label="pagination"
+         numberOfPage={10}
+         visibleNumberOfPages={5}
+         currentPage={context.page}
+         onChange={onPageChange}
+      >
+         {(pagination) => (
+            <>
+               <PaginationItem>
+                  <PaginationButton
+                     aria-label="Go to first page"
+                     page="first"
+                     icon={HiChevronLeft}
+                  />
+               </PaginationItem>
+               <PaginationItem>
+                  <PaginationPreviousButton
+                     aria-label="Go to previous page"
+                     icon={HiDoubleChevronLeft}
+                  />
+               </PaginationItem>
+               {pagination.pages.map((page) => (
+                  <PaginationItem>
+                     <PaginationPageButtonButton page={page} />
+                  </PaginationItem>
+               ))}
+               <PaginationItem>
+                  <PaginationNextButton aria-label="Go to next page" icon={HiChevronRight} />
+               </PaginationItem>
+               <PaginationItem>
+                  <PaginationLastButton aria-label="Go to last page" icon={HiDoubleChevronRight} />
+               </PaginationItem>
+            </>
+         )}
+      </Pagination>
+   );
+}
+```
