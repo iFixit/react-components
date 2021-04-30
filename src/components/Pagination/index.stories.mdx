@@ -46,7 +46,14 @@ A pagination component.
                   </PaginationItem>
                   {pagination.pages.map((page) => (
                      <PaginationItem key={page}>
-                        <PaginationButton aria-label={`Go to page ${page}`} page={page} />
+                        <PaginationButton
+                           aria-label={
+                              pagination.currentPage === page
+                                 ? 'current page'
+                                 : `go to page ${page}`
+                           }
+                           page={page}
+                        />
                      </PaginationItem>
                   ))}
                   <PaginationItem>
@@ -97,7 +104,11 @@ A pagination component.
                   {pagination.pages.map((page) => (
                      <PaginationItem key={page}>
                         <PaginationLink
-                           aria-label={`Go to page ${page}`}
+                           aria-label={
+                              pagination.currentPage === page
+                                 ? 'current page'
+                                 : `go to page ${page}`
+                           }
                            href={`#${page}`}
                            page={page}
                         />
@@ -150,7 +161,14 @@ A pagination component.
                   </PaginationItem>
                   {pagination.pages.map((page) => (
                      <PaginationItem key={page}>
-                        <PaginationButton aria-label={`Go to page ${page}`} page={page} />
+                        <PaginationButton
+                           aria-label={
+                              pagination.currentPage === page
+                                 ? 'current page'
+                                 : `go to page ${page}`
+                           }
+                           page={page}
+                        />
                      </PaginationItem>
                   ))}
                   <PaginationItem>
@@ -191,9 +209,9 @@ export function ControlledExample() {
    return (
       <Pagination
          aria-label="pagination"
-         numberOfPage={10}
+         numberOfPages={context.numberOfPages}
          visibleNumberOfPages={5}
-         currentPage={context.page}
+         page={context.page}
          onChange={onPageChange}
       >
          {(pagination) => (
@@ -202,25 +220,39 @@ export function ControlledExample() {
                   <PaginationButton
                      aria-label="Go to first page"
                      page="first"
+                     icon={HiChevronDoubleLeft}
+                  />
+               </PaginationItem>
+               <PaginationItem>
+                  <PaginationButton
+                     aria-label="Go to previous page"
+                     page="previous"
                      icon={HiChevronLeft}
                   />
                </PaginationItem>
-               <PaginationItem>
-                  <PaginationPreviousButton
-                     aria-label="Go to previous page"
-                     icon={HiDoubleChevronLeft}
-                  />
-               </PaginationItem>
                {pagination.pages.map((page) => (
-                  <PaginationItem>
-                     <PaginationPageButtonButton page={page} />
+                  <PaginationItem key={page}>
+                     <PaginationButton
+                        aria-label={
+                           pagination.currentPage === page ? 'current page' : `go to page ${page}`
+                        }
+                        page={page}
+                     />
                   </PaginationItem>
                ))}
                <PaginationItem>
-                  <PaginationNextButton aria-label="Go to next page" icon={HiChevronRight} />
+                  <PaginationButton
+                     aria-label="Go to next page"
+                     page="next"
+                     icon={HiChevronRight}
+                  />
                </PaginationItem>
                <PaginationItem>
-                  <PaginationLastButton aria-label="Go to last page" icon={HiDoubleChevronRight} />
+                  <PaginationButton
+                     aria-label="Go to last page"
+                     page="last"
+                     icon={HiChevronDoubleRight}
+                  />
                </PaginationItem>
             </>
          )}
