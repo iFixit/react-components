@@ -4,11 +4,7 @@ A set of reusable React components built on top of [Chakra](https://chakra-ui.co
 
 ## Getting Started
 
-Visit [LINK TO STORYBOOK](#getting-started)
-
-## Documentation
-
-Visit [LINK TO STORYBOOK](#)
+Visit [storybook](https://ifixit-components.netlify.app/)
 
 ## Contributing
 
