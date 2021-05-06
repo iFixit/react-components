@@ -5,18 +5,18 @@
       "type": "git",
       "url": "git@github.com:iFixit/react-components.git"
    },
-   "source": "src/index.tsx",
+   "source": "./src/index.tsx",
    "license": "UNLICENSED",
-   "main": "dist/react-components.js",
-   "typings": "dist/index.d.ts",
-   "exports": "dist/react-components.modern.js",
-   "module": "dist/react-components.module.js",
-   "unpkg": "dist/react-components.umd.js",
+   "main": "./dist/react-components.js",
+   "typings": "./dist/index.d.ts",
+   "exports": "./dist/react-components.modern.mjs",
+   "module": "./dist/react-components.module.js",
+   "unpkg": "./dist/react-components.umd.js",
    "files": [
       "dist"
    ],
    "scripts": {
-      "build": "microbundle --jsx React.createElement",
+      "build": "microbundle --jsx React.createElement && microbundle --jsx React.createElement -i src/index.tsx -o dist/react-components.modern.mjs --no-pkg-main -f modern",
       "dev": "microbundle watch",
       "storybook": "start-storybook -p 6006 -h localhost",
       "build-storybook": "build-storybook",
