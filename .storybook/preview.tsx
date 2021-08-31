@@ -5,6 +5,12 @@ import { theme } from '../src';
 
 export const parameters = {
    actions: { argTypesRegex: '^on[A-Z].*' },
+   options: {
+      storySort: {
+         method: 'alphabetical',
+      },
+   },
+   controls: { expanded: true },
 };
 
 const customTheme = extendTheme(theme);

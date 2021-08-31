@@ -1,0 +1,239 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks';
+import {
+   Box,
+   BoxProps,
+   chakra,
+   Divider,
+   Flex,
+   forwardRef,
+   HStack,
+   Icon,
+   Img,
+   List,
+   ListIcon,
+   ListItem,
+   ListItemProps,
+   ListProps,
+   Menu,
+   MenuButton,
+   MenuItem,
+   MenuItemProps,
+   MenuList,
+   SimpleGrid,
+   Stack,
+   StackProps,
+   Text,
+   TextProps,
+} from '@chakra-ui/react';
+import { FlagIcon } from '../FlagIcon';
+import {
+   FacebookLogo,
+   TwitterLogo,
+   InstagramLogo,
+   YoutubeLogo,
+   RepairOrgLogo,
+   Globe,
+} from '../../icons';
+import {
+   Footer,
+   FooterMenuList,
+   FooterMenuItem,
+   FooterMenuLink,
+   StoreMenuButton,
+   StoreFlagBackdrop,
+   StoreMenuItem,
+   StoreName,
+   StoreCurrency,
+   FooterLink,
+   FooterPartnerLink,
+} from '.';
+import partners from './partners.json';
+
+<Meta
+   title="UI / Footer"
+   parameters={{
+      docs: {
+         source: {
+            type: 'code',
+         },
+      },
+   }}
+/>
+
+# Footer
+
+Components to compose the iFixit footer.
+
+<Canvas>
+   <Story name="default" args={{}}>
+      {(args) => (
+         <Footer>
+            <SimpleGrid
+               columns={{ base: 1, sm: 3, lg: 4 }}
+               spacing="4"
+               px={{ base: 5, sm: 10 }}
+               py="10"
+               autoFlow="row"
+            >
+               <FooterMenuList>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">About us</FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">Customer support</FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">Careers</FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">Feedback</FooterMenuLink>
+                  </FooterMenuItem>
+               </FooterMenuList>
+               <FooterMenuList>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">Press</FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">News</FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">Contribute</FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">Pro Wholesale</FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#">Retail locator</FooterMenuLink>
+                  </FooterMenuItem>
+               </FooterMenuList>
+               <FooterMenuList>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#" icon={FacebookLogo}>
+                        Facebook
+                     </FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#" icon={TwitterLogo}>
+                        Twitter
+                     </FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#" icon={InstagramLogo}>
+                        Instagram
+                     </FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#" icon={YoutubeLogo}>
+                        Youtube
+                     </FooterMenuLink>
+                  </FooterMenuItem>
+                  <FooterMenuItem>
+                     <FooterMenuLink href="#" icon={RepairOrgLogo}>
+                        Repair.org
+                     </FooterMenuLink>
+                  </FooterMenuItem>
+               </FooterMenuList>
+               <SimpleGrid columns={3} spacing="4" gridColumnEnd={{ sm: 'span 3', lg: 'auto' }}>
+                  {partners.map((partner) => {
+                     return (
+                        <FooterPartnerLink key={partner.name} href="#">
+                           <Img
+                              h="full"
+                              mx="auto"
+                              objectFit="contain"
+                              src={partner.logo}
+                              alt={partner.name}
+                           />
+                        </FooterPartnerLink>
+                     );
+                  })}
+               </SimpleGrid>
+            </SimpleGrid>
+            <Divider borderColor="trueGray.700" />
+            <SimpleGrid
+               columns={{ base: 1, lg: 2 }}
+               py="6"
+               px={{ base: 5, sm: 10 }}
+               spacing={{
+                  base: 10,
+               }}
+            >
+               <Stack
+                  direction={{ base: 'row' }}
+                  spacing={{
+                     base: 2,
+                     sm: 12,
+                  }}
+                  justify={{
+                     base: 'space-between',
+                     sm: 'center',
+                     lg: 'flex-start',
+                  }}
+               >
+                  <Menu>
+                     <StoreMenuButton
+                        icon={
+                           <StoreFlagBackdrop>
+                              <FlagIcon code="EU" />
+                           </StoreFlagBackdrop>
+                        }
+                     >
+                        Region
+                     </StoreMenuButton>
+                     <MenuList>
+                        <StoreMenuItem as="a">
+                           <FlagIcon code="EU" />
+                           <StoreName>European Union</StoreName>
+                           <StoreCurrency>EUR</StoreCurrency>
+                        </StoreMenuItem>
+                        <StoreMenuItem as="a">
+                           <FlagIcon code="US" />
+                           <StoreName>United States</StoreName>
+                           <StoreCurrency>USD</StoreCurrency>
+                        </StoreMenuItem>
+                     </MenuList>
+                  </Menu>
+                  <FooterLink href="#" icon={Globe}>
+                     Help translate
+                  </FooterLink>
+               </Stack>
+               <Stack
+                  justify={{
+                     base: 'flex-start',
+                     sm: 'center',
+                     lg: 'flex-end',
+                  }}
+                  direction={{
+                     base: 'column',
+                     sm: 'row',
+                  }}
+                  spacing={{
+                     base: 2,
+                     sm: 4,
+                  }}
+               >
+                  <FooterLink>Licensed under creative commons</FooterLink>
+                  <Divider
+                     opacity={{
+                        base: 1,
+                        sm: 1,
+                     }}
+                     orientation="vertical"
+                     borderColor="trueGray.700"
+                  />
+                  <FooterLink>Privacy</FooterLink>
+                  <Divider
+                     opacity={{
+                        base: 1,
+                        sm: 1,
+                     }}
+                     orientation="vertical"
+                     borderColor="trueGray.700"
+                  />
+                  <FooterLink>Legal</FooterLink>
+               </Stack>
+            </SimpleGrid>
+         </Footer>
+      )}
+   </Story>
+</Canvas>

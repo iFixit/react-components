@@ -1,0 +1,35 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks';
+import { FlagIcon } from '.';
+
+<Meta
+   title="Basics / FlagIcon"
+   parameters={{
+      docs: {
+         source: {
+            type: 'code',
+         },
+      },
+   }}
+   argTypes={{
+      code: {
+         description: 'The country code',
+         options: ['AU', 'CA', 'DE', 'FR', 'GB', 'EU', 'US'],
+         control: { type: 'select' },
+      },
+   }}
+/>
+
+# FlagIcon
+
+An icon that displays a country flag. This component inherits all Chakra icon props.
+
+<Canvas>
+   <Story
+      name="default"
+      args={{
+         code: 'US',
+      }}
+   >
+      {(args) => <FlagIcon code={args.code} />}
+   </Story>
+</Canvas>
