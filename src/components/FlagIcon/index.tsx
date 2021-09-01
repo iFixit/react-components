@@ -11,6 +11,7 @@ export enum CountryCode {
    EU = 'EU',
    US = 'US',
 }
+
 export type FlagIconProps = IconProps & {
    code?: CountryCode;
 };
