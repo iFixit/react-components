@@ -56,6 +56,34 @@ export const FooterMenuList = forwardRef<ListProps, 'ul'>(({ children, ...otherP
    );
 });
 
+export const FooterMenuItem = (props: ListItemProps) => {
+   return <ListItem py="1" fontSize="sm" fontWeight="black" color="trueGray.300" {...props} />;
+};
+
+export type FooterMenuItemLinkProps = BoxProps & {
+   icon?: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+};
+
+export const FooterMenuLink = forwardRef<FooterMenuItemLinkProps, 'a'>(
+   ({ icon, children, ...otherProps }, ref) => {
+      return (
+         <Box
+            ref={ref}
+            as="a"
+            cursor="pointer"
+            transition="all 400ms"
+            _hover={{
+               color: 'white',
+            }}
+            {...otherProps}
+         >
+            {icon && <ListIcon as={icon} boxSize="4" filter="opacity(0.5)" />}
+            {children}
+         </Box>
+      );
+   }
+);
+
 export type FooterLinkProps = StackProps & {
    icon?: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
 };
@@ -104,34 +132,6 @@ export const StoreCurrency = forwardRef<TextProps, 'p'>((props, ref) => {
 export const StoreFlagBackdrop = (props: BoxProps) => {
    return <Box p="1.5" borderRadius="base" bg="trueGray.800" {...props} />;
 };
-
-export const FooterMenuItem = (props: ListItemProps) => {
-   return <ListItem py="1" fontSize="sm" fontWeight="semibold" color="trueGray.300" {...props} />;
-};
-
-export type FooterMenuItemLinkProps = BoxProps & {
-   icon?: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
-};
-
-export const FooterMenuLink = forwardRef<FooterMenuItemLinkProps, 'a'>(
-   ({ icon, children, ...otherProps }, ref) => {
-      return (
-         <Box
-            ref={ref}
-            as="a"
-            cursor="pointer"
-            transition="all 400ms"
-            _hover={{
-               color: 'white',
-            }}
-            {...otherProps}
-         >
-            {icon && <ListIcon as={icon} boxSize="4" filter="opacity(0.5)" />}
-            {children}
-         </Box>
-      );
-   }
-);
 
 export type StoreMenuButtonProps = MenuButtonProps & {
    icon?: React.ReactNode;

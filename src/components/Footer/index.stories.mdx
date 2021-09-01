@@ -48,6 +48,8 @@ import {
    FooterPartnerLink,
 } from '.';
 import partners from './partners.json';
+import links from './links.json';
+import stores from './stores.json';
 
 <Meta
    title="UI / Footer"
@@ -62,7 +64,10 @@ import partners from './partners.json';
 
 # Footer
 
-Components to compose the iFixit footer.
+The footer is composed by using standard Chakra components along with custom defined components that are exported by this library.
+In order to use the footer just copy the code below and import the components into your project.
+Please note that the example uses json data for generate some parts of the footer, so you need to replace that with data
+coming from API or CMS.
 
 <Canvas>
    <Story name="default" args={{}}>
@@ -75,37 +80,17 @@ Components to compose the iFixit footer.
                py="10"
                autoFlow="row"
             >
-               <FooterMenuList>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">About us</FooterMenuLink>
-                  </FooterMenuItem>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">Customer support</FooterMenuLink>
-                  </FooterMenuItem>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">Careers</FooterMenuLink>
-                  </FooterMenuItem>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">Feedback</FooterMenuLink>
-                  </FooterMenuItem>
-               </FooterMenuList>
-               <FooterMenuList>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">Press</FooterMenuLink>
-                  </FooterMenuItem>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">News</FooterMenuLink>
-                  </FooterMenuItem>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">Contribute</FooterMenuLink>
-                  </FooterMenuItem>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">Pro Wholesale</FooterMenuLink>
-                  </FooterMenuItem>
-                  <FooterMenuItem>
-                     <FooterMenuLink href="#">Retail locator</FooterMenuLink>
-                  </FooterMenuItem>
-               </FooterMenuList>
+               {links.map((linklist, index) => (
+                  <FooterMenuList key={index}>
+                     {linklist.map((link) => {
+                        return (
+                           <FooterMenuItem key={link.label}>
+                              <FooterMenuLink href={link.url}>{link.label}</FooterMenuLink>
+                           </FooterMenuItem>
+                        );
+                     })}
+                  </FooterMenuList>
+               ))}
                <FooterMenuList>
                   <FooterMenuItem>
                      <FooterMenuLink href="#" icon={FacebookLogo}>
@@ -174,23 +159,22 @@ Components to compose the iFixit footer.
                      <StoreMenuButton
                         icon={
                            <StoreFlagBackdrop>
-                              <FlagIcon code="EU" />
+                              <FlagIcon code="US" />
                            </StoreFlagBackdrop>
                         }
                      >
                         Region
                      </StoreMenuButton>
                      <MenuList>
-                        <StoreMenuItem as="a">
-                           <FlagIcon code="EU" />
-                           <StoreName>European Union</StoreName>
-                           <StoreCurrency>EUR</StoreCurrency>
-                        </StoreMenuItem>
-                        <StoreMenuItem as="a">
-                           <FlagIcon code="US" />
-                           <StoreName>United States</StoreName>
-                           <StoreCurrency>USD</StoreCurrency>
-                        </StoreMenuItem>
+                        {stores.map((store) => {
+                           return (
+                              <StoreMenuItem key={store.code} as="a" href={store.url}>
+                                 <FlagIcon code={store.code.toUpperCase()} />
+                                 <StoreName>{store.name}</StoreName>
+                                 <StoreCurrency>{store.currency}</StoreCurrency>
+                              </StoreMenuItem>
+                           );
+                        })}
                      </MenuList>
                   </Menu>
                   <FooterLink href="#" icon={Globe}>
@@ -212,7 +196,7 @@ Components to compose the iFixit footer.
                      sm: 4,
                   }}
                >
-                  <FooterLink>Licensed under creative commons</FooterLink>
+                  <FooterLink href="#">Licensed under creative commons</FooterLink>
                   <Divider
                      opacity={{
                         base: 1,
@@ -221,7 +205,7 @@ Components to compose the iFixit footer.
                      orientation="vertical"
                      borderColor="trueGray.700"
                   />
-                  <FooterLink>Privacy</FooterLink>
+                  <FooterLink href="#">Privacy</FooterLink>
                   <Divider
                      opacity={{
                         base: 1,
@@ -230,10 +214,24 @@ Components to compose the iFixit footer.
                      orientation="vertical"
                      borderColor="trueGray.700"
                   />
-                  <FooterLink>Legal</FooterLink>
+                  <FooterLink href="#">Legal</FooterLink>
                </Stack>
             </SimpleGrid>
          </Footer>
       )}
    </Story>
 </Canvas>
+
+## Using NextJS links
+
+In order to enable faster navigation when using NextJS, you should wrap links using the Next Link component.
+
+```tsx
+import NextLink from "next/link";
+
+// ...
+
+<NextLink href="#" passHref>
+   <FooterMenuLink>Customer support</FooterMenuLink>
+</NextLink>>
+```
