@@ -2,6 +2,7 @@ import {
    Box,
    BoxProps,
    chakra,
+   forwardRef,
    HStack,
    HTMLChakraProps,
    Icon,
@@ -77,146 +78,147 @@ function usePaginationContext() {
 
 export type PaginationItemProps = BoxProps;
 
-export function PaginationItem(props: PaginationItemProps) {
-   return <Box as="li" {...props} />;
-}
+export const PaginationItem = forwardRef<PaginationItemProps, 'li'>((props, ref) => {
+   return <Box ref={ref} as="li" {...props} />;
+});
 
 export interface PaginationButtonProps extends HTMLChakraProps<'button'> {
    page: number | 'first' | 'previous' | 'next' | 'last';
    icon?: React.ElementType;
 }
 
-export function PaginationButton({
-   page,
-   icon: ButtonIcon,
-   children,
-   ...rest
-}: PaginationButtonProps) {
-   const styles = useStyles();
-   const {
-      currentPage,
-      numberOfPages,
-      goto,
-      hasPrevious,
-      hasNext,
-      previous,
-      next,
-      first,
-      last,
-   } = usePaginationContext();
+export const PaginationButton = forwardRef<PaginationButtonProps, 'button'>(
+   ({ page, icon: ButtonIcon, children, ...rest }, ref) => {
+      const styles = useStyles();
+      const {
+         currentPage,
+         numberOfPages,
+         goto,
+         hasPrevious,
+         hasNext,
+         previous,
+         next,
+         first,
+         last,
+      } = usePaginationContext();
 
-   const handleClick = React.useCallback(() => {
-      switch (page) {
-         case 'first': {
-            first();
-            break;
-         }
-         case 'previous': {
-            previous();
-            break;
-         }
-         case 'next': {
-            next();
-            break;
-         }
-         case 'last': {
-            last();
-            break;
-         }
-         default: {
-            if (currentPage !== page) {
-               goto(page);
+      const handleClick = React.useCallback(() => {
+         switch (page) {
+            case 'first': {
+               first();
+               break;
+            }
+            case 'previous': {
+               previous();
+               break;
+            }
+            case 'next': {
+               next();
+               break;
+            }
+            case 'last': {
+               last();
+               break;
+            }
+            default: {
+               if (currentPage !== page) {
+                  goto(page);
+               }
             }
          }
+      }, [currentPage, page, goto, first, previous, next, last]);
+
+      const isDisabled =
+         (page === 'previous' && !hasPrevious) ||
+         (page === 'next' && !hasNext) ||
+         (page === 'first' && currentPage === 1) ||
+         (page === 'last' && currentPage === numberOfPages);
+      const isCurrentPage = page === currentPage;
+      const isPage = typeof page === 'number';
+
+      if (isCurrentPage) {
+         return (
+            <chakra.span ref={ref} aria-current="page" {...rest} __css={styles.pageButton}>
+               {children == null ? page : children}
+            </chakra.span>
+         );
       }
-   }, [currentPage, page, goto, first, previous, next, last]);
+      let content: React.ReactNode;
 
-   const isDisabled =
-      (page === 'previous' && !hasPrevious) ||
-      (page === 'next' && !hasNext) ||
-      (page === 'first' && currentPage === 1) ||
-      (page === 'last' && currentPage === numberOfPages);
-   const isCurrentPage = page === currentPage;
-   const isPage = typeof page === 'number';
+      if (ButtonIcon != null) {
+         content = <Icon as={ButtonIcon} color="currentColor" />;
+      } else if (children == null) {
+         content = page;
+      } else {
+         content = children;
+      }
 
-   if (isCurrentPage) {
       return (
-         <chakra.span aria-current="page" {...rest} __css={styles.pageButton}>
-            {children == null ? page : children}
-         </chakra.span>
+         <chakra.button
+            ref={ref}
+            disabled={isDisabled}
+            onClick={handleClick}
+            {...rest}
+            __css={isPage ? styles.pageButton : styles.button}
+         >
+            {content}
+         </chakra.button>
       );
    }
-   let content: React.ReactNode;
-
-   if (ButtonIcon != null) {
-      content = <Icon as={ButtonIcon} color="currentColor" />;
-   } else if (children == null) {
-      content = page;
-   } else {
-      content = children;
-   }
-
-   return (
-      <chakra.button
-         disabled={isDisabled}
-         onClick={handleClick}
-         {...rest}
-         __css={isPage ? styles.pageButton : styles.button}
-      >
-         {content}
-      </chakra.button>
-   );
-}
+);
 
 export interface PaginationLinkProps extends HTMLChakraProps<'a'> {
    page: number | 'first' | 'previous' | 'next' | 'last';
    icon?: React.ElementType;
 }
 
-export function PaginationLink({ page, icon: ButtonIcon, children, ...rest }: PaginationLinkProps) {
-   const styles = useStyles();
-   const { currentPage, numberOfPages, hasPrevious, hasNext } = usePaginationContext();
+export const PaginationLink = forwardRef<PaginationLinkProps, 'a'>(
+   ({ page, icon: ButtonIcon, children, ...rest }, ref) => {
+      const styles = useStyles();
+      const { currentPage, numberOfPages, hasPrevious, hasNext } = usePaginationContext();
 
-   const isDisabled =
-      (page === 'previous' && !hasPrevious) ||
-      (page === 'next' && !hasNext) ||
-      (page === 'first' && currentPage === 1) ||
-      (page === 'last' && currentPage === numberOfPages);
-   const isCurrentPage = page === currentPage;
-   const isPage = typeof page === 'number';
+      const isDisabled =
+         (page === 'previous' && !hasPrevious) ||
+         (page === 'next' && !hasNext) ||
+         (page === 'first' && currentPage === 1) ||
+         (page === 'last' && currentPage === numberOfPages);
+      const isCurrentPage = page === currentPage;
+      const isPage = typeof page === 'number';
 
-   if (isCurrentPage) {
+      if (isCurrentPage) {
+         return (
+            <chakra.span ref={ref} aria-current="page" {...rest} __css={styles.pageLink}>
+               {children == null ? page : children}
+            </chakra.span>
+         );
+      }
+      let content: React.ReactNode;
+
+      if (ButtonIcon != null) {
+         content = <Icon as={ButtonIcon} color="currentColor" />;
+      } else if (children == null) {
+         content = page;
+      } else {
+         content = children;
+      }
+
+      if (isDisabled) {
+         return (
+            <chakra.span
+               ref={ref}
+               disabled={isDisabled}
+               {...rest}
+               __css={isPage ? styles.pageLink : styles.link}
+            >
+               {content}
+            </chakra.span>
+         );
+      }
+
       return (
-         <chakra.span aria-current="page" {...rest} __css={styles.pageLink}>
-            {children == null ? page : children}
-         </chakra.span>
-      );
-   }
-   let content: React.ReactNode;
-
-   if (ButtonIcon != null) {
-      content = <Icon as={ButtonIcon} color="currentColor" />;
-   } else if (children == null) {
-      content = page;
-   } else {
-      content = children;
-   }
-
-   if (isDisabled) {
-      return (
-         <chakra.span
-            disabled={isDisabled}
-            {...rest}
-            __css={isPage ? styles.pageLink : styles.link}
-         >
+         <chakra.a ref={ref} {...rest} __css={isPage ? styles.pageLink : styles.link}>
             {content}
-         </chakra.span>
+         </chakra.a>
       );
    }
-
-   return (
-      <chakra.a {...rest} __css={isPage ? styles.pageLink : styles.link}>
-         {content}
-      </chakra.a>
-   );
-}
+);
