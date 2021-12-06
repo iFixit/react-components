@@ -23,14 +23,7 @@ import * as React from 'react';
 
 export const Footer = forwardRef<FlexProps, 'footer'>(({ children, ...otherProps }, ref) => {
    return (
-      <Flex
-         ref={ref}
-         as="footer"
-         direction="column"
-         bg="trueGray.900"
-         color="white"
-         {...otherProps}
-      >
+      <Flex ref={ref} as="footer" direction="column" bg="gray.900" color="white" {...otherProps}>
          {children}
       </Flex>
    );
@@ -48,7 +41,7 @@ export const FooterMenuList = forwardRef<ListProps, 'ul'>(({ children, ...otherP
             base: 'thin',
             sm: 0,
          }}
-         borderBottomColor="trueGray.700"
+         borderBottomColor="gray.700"
          {...otherProps}
       >
          {children}
@@ -57,7 +50,7 @@ export const FooterMenuList = forwardRef<ListProps, 'ul'>(({ children, ...otherP
 });
 
 export const FooterMenuItem = (props: ListItemProps) => {
-   return <ListItem py="1" fontSize="sm" fontWeight="black" color="trueGray.300" {...props} />;
+   return <ListItem py="1" fontSize="sm" fontWeight="black" color="gray.300" {...props} />;
 };
 
 export type FooterMenuItemLinkProps = BoxProps & {
@@ -95,7 +88,7 @@ export const FooterLink = forwardRef<FooterLinkProps, 'a'>(
             ref={ref}
             as="a"
             align="center"
-            color="trueGray.300"
+            color="gray.300"
             transition="color 300ms"
             _hover={{ color: 'white' }}
             {...otherProps}
@@ -126,11 +119,11 @@ export const StoreName = forwardRef<TextProps, 'p'>((props, ref) => {
 });
 
 export const StoreCurrency = forwardRef<TextProps, 'p'>((props, ref) => {
-   return <Text ref={ref} ml="2" mt="-1px" color="trueGray.500" {...props} />;
+   return <Text ref={ref} ml="2" mt="-1px" color="gray.500" {...props} />;
 });
 
 export const StoreFlagBackdrop = (props: BoxProps) => {
-   return <Box p="1.5" borderRadius="base" bg="trueGray.800" {...props} />;
+   return <Box p="1.5" borderRadius="base" bg="gray.800" {...props} />;
 };
 
 export type StoreMenuButtonProps = MenuButtonProps & {
@@ -140,7 +133,7 @@ export type StoreMenuButtonProps = MenuButtonProps & {
 export const StoreMenuButton = forwardRef<StoreMenuButtonProps, 'button'>(
    ({ children, icon, ...otherProps }, ref) => {
       return (
-         <MenuButton ref={ref} color="trueGray.300" _hover={{ color: 'white' }} {...otherProps}>
+         <MenuButton ref={ref} color="gray.300" _hover={{ color: 'white' }} {...otherProps}>
             <HStack alignItems="center">
                <Text color="inherit" fontSize="sm" lineHeight="1em" fontWeight="semibold">
                   {children}
@@ -157,7 +150,7 @@ export const FooterPartnerLink = forwardRef<BoxProps, 'a'>(({ children, ...other
       <Box
          ref={ref}
          as="a"
-         bg="trueGray.800"
+         bg="gray.800"
          opacity="0.5"
          h="48px"
          p="4"

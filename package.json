@@ -28,11 +28,11 @@
       "gen:theme-typings": "chakra-cli tokens ./src/theme/index.ts"
    },
    "peerDependencies": {
-      "react": ">=16",
       "@chakra-ui/react": ">=1.4.2",
       "@emotion/react": ">=11",
       "@emotion/styled": ">=11",
-      "framer-motion": ">=4"
+      "framer-motion": ">=4",
+      "react": ">=16"
    },
    "devDependencies": {
       "@axe-core/react": "4.1.1",
@@ -71,7 +71,8 @@
    "dependencies": {
       "@chakra-ui/react-utils": "1.1.1",
       "@chakra-ui/theme-tools": "1.1.5",
-      "@chakra-ui/utils": "1.6.0"
+      "@chakra-ui/utils": "1.6.0",
+      "@core-ds/primitives": "^2.3.0"
    },
    "lint-staged": {
       "*.{js,ts,tsx,css,md,mdx}": "prettier --write",

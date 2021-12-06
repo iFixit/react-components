@@ -1,9 +1,8 @@
 import type { ThemeOverride } from '@chakra-ui/react';
-
-const sansSystemFontStack = '-apple-system, "Segoe UI", Helvetica, Arial, sans-serif';
+import primitives from '@core-ds/primitives';
 
 export const fonts: ThemeOverride['fonts'] = {
-   body: `Lato, ${sansSystemFontStack}`,
-   heading: `Lato, ${sansSystemFontStack}`,
-   mono: "Monaco, 'Lucida Console', 'Courier New', Courier, monospace",
+   body: primitives.fontFamily.lato,
+   heading: primitives.fontFamily.lato,
+   mono: primitives.fontFamily.monoSystem,
 };
